@@ -1,8 +1,6 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-@main
-
 func menuChoice() {
     print("\n==== Egg Shop ====")
             print("1. Add eggs")
@@ -12,26 +10,32 @@ func menuChoice() {
             print("5. Exit")
             print("Choose an option:\n")
 }
+@main
+
 
 struct SwiftPlayground {
     /// A description
     /// - Parameters:
     ///
     static func main() {
-        var isActive = true
-        while isActive {
+        // var isActive = true
+        // while isActive {
+            func menuChoice()
+            //  -> Int {
+            //     userInput
+            // }
+
             
-            func menuChoice() ->
 
-            let userInput = readLine()!
-            switch userInput {
-                case "5":
-                isActive = false
+            // let userInput = readLine()!
+            // switch userInput {
+            //     case "5":
+            //     isActive = false
 
-            default: print("Please enter a number 1-5.")
+            // default: print("Please enter a number 1-5.")
 
 }
         }
-    }
-}
+    
+
 
