@@ -2,45 +2,36 @@
 // https://docs.swift.org/swift-book
 
 @main
+
+func menuChoice() {
+    print("\n==== Egg Shop ====")
+            print("1. Add eggs")
+            print("2. Sell egs")
+            print("3. Show current stock")
+            print("4. Show total eggs sold")
+            print("5. Exit")
+            print("Choose an option:\n")
+}
+
 struct SwiftPlayground {
     /// A description
     /// - Parameters:
     ///
     static func main() {
-        let maximumItemVolume = 2.0
+        var isActive = true
+        while isActive {
+            
+            func menuChoice() ->
 
-        print("Enter room length:")
-        guard let userInput = readLine(), let roomLength = Double(userInput) else {
+            let userInput = readLine()!
+            switch userInput {
+                case "5":
+                isActive = false
 
-            print("Invalid number.")
-        }
-        print("Enter room Width:")
-        guard let userInput = readLine(), let roomWidth = Double(userInput) else {
+            default: print("Please enter a number 1-5.")
 
-            print("Enter room Height:")
-            guard let userInput = readLine(), let roomHeight = Double(userInput) else {
-                let roomArea = roomLength * roomWidth
-                let roomVolume = roomArea * roomHeight
-
-                print("Room area: \(roomArea) m^2")
-                print("Room area: \(roomVolume) m^3")
-
-                let furnitureVolumes = [1.2, 0.8, 2.5, 0.6, 1.0]
-
-                var totalFurnitureVolume = 0.0
-
-                furnitureVolumes.enumerated().forEach { index, volume in
-                    print("Item \(index + 1): \(volume) m^3")
-                    if volume > maximumItemVolume {
-                        print("Oversized item detected.")
-                    }
-                    totalFurnitureVolume = totalFurnitureVolume + volume
-                }
-
-                let usableVolume = roomVolume - totalFurnitureVolume
-                print("Usable volume: \(usableVolume) m^3.")
-
-            }
+}
         }
     }
 }
+
