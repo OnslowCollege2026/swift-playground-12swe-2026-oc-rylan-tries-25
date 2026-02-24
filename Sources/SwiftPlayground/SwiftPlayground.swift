@@ -9,7 +9,7 @@ func menuChoice() -> Int {
     print("3. Show current stock")
     print("4. Show total eggs sold")
     print("5. Exit")
-    print("\nChoose an option:\n")
+    print("\nChoose an option:")
 
     while true {
         let userInput = readLine()!
@@ -17,11 +17,23 @@ func menuChoice() -> Int {
             // print("Value: \(userInput) is okay, return it.")
             return userChoice
         } else {
-            print("you entered: \(userInput). Please enter a number on the menue.")
+            print("You entered: \(userInput). Please enter a number on the menue.")
         }
     }
 }
 
+// A generic function that is used to validate users input is an int
+func intInputValidator() -> Int { 
+    while true {
+        let userInput = readLine()!
+        if let userChoice = Int(userInput) {
+            // print("Value: \(userInput) is okay, return it.")
+            return userChoice
+        } else {
+            print("You entered: \(userInput). Please enter a valid input.")
+        }
+    }
+}
 
 // Allows the user to add eggs to their total amount
 func addEggs(eggsInInventory: Int, eggsAdded: Int) -> Int { 
@@ -45,15 +57,16 @@ struct SwiftPlayground {
             switch userChoice {
             case 1:
                 print("How many eggs would you like to add?")
-                // let userInput = readLine()!
-                totalEggs = addEggs(eggsInInventory: totalEggs, eggsAdded: 5)
+                let userInput = intInputValidator()
+                totalEggs = addEggs(eggsInInventory: totalEggs, eggsAdded: userInput)
                 print("You have \(totalEggs) eggs in your inventory.")
-                isActive = false
+                // isActive = false
 
             case 5:
+                print ("\nExiting the Egg Shop.")
                 isActive = false
             default:
-                print("Invalid input")
+                print("\nInvalid input")
             }
         }
     }
