@@ -11,10 +11,10 @@ func menuChoice() -> Int {
     print("5. Exit")
     print("\nChoose an option:")
 
+/// 
     while true {
         let userInput = readLine()!
         if let userChoice = Int(userInput), (1...5).contains(userChoice) {
-            // print("Value: \(userInput) is okay, return it.")
             return userChoice
         } else {
             print("You entered: \(userInput). Please enter a number on the menue.")
@@ -22,12 +22,11 @@ func menuChoice() -> Int {
     }
 }
 
-// A generic function that is used to validate users input is an int
-func intInputValidator() -> Int { 
+/// A generic function that is used to validate users input is an int
+func intInputValidator() -> Int {
     while true {
         let userInput = readLine()!
         if let userChoice = Int(userInput) {
-            // print("Value: \(userInput) is okay, return it.")
             return userChoice
         } else {
             print("You entered: \(userInput). Please enter a valid input.")
@@ -35,35 +34,42 @@ func intInputValidator() -> Int {
     }
 }
 
-// Allows the user to add eggs to their total amount
-func addEggs(eggsInInventory: Int, eggsAdded: Int) -> Int { 
+/// Allows the user to add eggs to their total amount
+func addEggs(eggsInInventory: Int, eggsAdded: Int) -> Int {
     return eggsInInventory + eggsAdded
+}
+
+/// Allows the user to take eggs from their total amount and sell them
+func sellEggs(eggsInInventory: Int, eggsAdded: Int) -> Int {
+    return eggsInInventory - eggsAdded
 }
 @main
 
 struct SwiftPlayground {
-    /// A description
-    /// - Parameters:
-    ///
     static func main() {
-        var totalEggs = 12
+        var totalEggs = 120
         print("\nEgg shop inventory system.")
-        // print(menuChoice())
 
         var isActive = true
         while isActive {
 
             let userChoice = menuChoice()
             switch userChoice {
+
             case 1:
-                print("How many eggs would you like to add?")
+                print("\nHow many eggs would you like to add?")
                 let userInput = intInputValidator()
                 totalEggs = addEggs(eggsInInventory: totalEggs, eggsAdded: userInput)
                 print("You have \(totalEggs) eggs in your inventory.")
-                // isActive = false
+
+            case 2:
+                print("\nHow many eggs would you like to sell")
+                let userInput = intInputValidator()
+                totalEggs = sellEggs(eggsInInventory: totalEggs, eggsAdded: userInput)
+                print("You have \(totalEggs) eggs in your inventory.")
 
             case 5:
-                print ("\nExiting the Egg Shop.")
+                print("\nExiting the Egg Shop.")
                 isActive = false
             default:
                 print("\nInvalid input")
