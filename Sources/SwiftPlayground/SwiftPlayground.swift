@@ -1,7 +1,7 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-// Prints the menu showing the user their input options and checks their input is valid
+/// Prints the menu showing the user their input options and checks their input is valid
 func menuChoice() -> Int {
     print("\n==== Egg Shop ====")
     print("1. Add eggs")
@@ -11,7 +11,6 @@ func menuChoice() -> Int {
     print("5. Exit")
     print("\nChoose an option:")
 
-/// 
     while true {
         let userInput = readLine()!
         if let userChoice = Int(userInput), (1...5).contains(userChoice) {
@@ -31,6 +30,15 @@ func intInputValidator() -> Int {
         } else {
             print("You entered: \(userInput). Please enter a valid input.")
         }
+    }
+}
+
+
+func intChecker() -> Bool {
+    let userInput = readLine()!
+    let userInput = Bool [userChoice]
+    if userChoice < 0 {
+        print ("Adding \(userInput) eggs into the inventory...")
     }
 }
 
