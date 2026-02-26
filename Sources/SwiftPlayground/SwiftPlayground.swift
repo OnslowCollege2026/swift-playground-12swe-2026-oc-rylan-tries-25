@@ -16,7 +16,7 @@ func menuChoice() -> Int {
         if let userChoice = Int(userInput), (1...5).contains(userChoice) {
             return userChoice
         } else {
-            print("You entered: \(userInput). Please enter a number on the menue.")
+            print("You entered '\(userInput)', please enter a number on the menue.")
         }
     }
 }
@@ -25,37 +25,53 @@ func menuChoice() -> Int {
 func intInputValidator() -> Int {
     while true {
         let userInput = readLine()!
-        if let userChoice = Int(userInput) {
+        if let userChoice = Int(userInput), Int(userInput)! > 0 {
             return userChoice
         } else {
-            print("You entered: \(userInput). Please enter a valid input.")
+            print("You entered '\(userInput)', please enter a valid input.")
         }
     }
 }
 
+/// Allows the user to add eggs to their total amount
+func addEggs(EggsInInventory: Int, eggsAdded: Int, maxEggsInInventory: Int) -> Int {
+    if EggsInInventory + eggsAdded > maxEggsInInventory {
+        // Work out how many exceeded by
+        let exceededAmount = EggsInInventory + eggsAdded - maxEggsInInventory
 
-func intChecker() -> Bool {
-    let userInput = readLine()!
-    let userInput = Bool [userChoice]
-    if userChoice < 0 {
-        print ("Adding \(userInput) eggs into the inventory...")
+        print(
+            "\nYou have exceeded the maximum inventory of \(maxEggsInInventory) amount by \(exceededAmount).\n"
+        )
+
+        print(
+            "You have added \(maxEggsInInventory - EggsInInventory) and you have returned \(exceededAmount) back to the supplier.\n"
+        )
+
+        return maxEggsInInventory
+    } else {
+        return EggsInInventory + eggsAdded
     }
 }
 
-/// Allows the user to add eggs to their total amount
-func addEggs(eggsInInventory: Int, eggsAdded: Int) -> Int {
-    return eggsInInventory + eggsAdded
-}
+// Allows the user to take eggs from their total amount and sell them
+func sellEggs(EggsInInventory: Int, eggsSold: Int) -> Int {
+    if EggsInInventory - eggsSold < 0 {
+    
+        print("You have sold the maximum amount of eggs possible of \(EggsInInventory), because you were short of\(eggsSold - EggsInInventory).")
 
-/// Allows the user to take eggs from their total amount and sell them
-func sellEggs(eggsInInventory: Int, eggsAdded: Int) -> Int {
-    return eggsInInventory - eggsAdded
+        return 0
+    } else {
+        return EggsInInventory - eggsSold
+    }
 }
 @main
 
 struct SwiftPlayground {
     static func main() {
-        var totalEggs = 120
+
+        var EggsInInventory = 120
+        let maxEggsInInventory = 1200
+
         print("\nEgg shop inventory system.")
 
         var isActive = true
@@ -67,14 +83,17 @@ struct SwiftPlayground {
             case 1:
                 print("\nHow many eggs would you like to add?")
                 let userInput = intInputValidator()
-                totalEggs = addEggs(eggsInInventory: totalEggs, eggsAdded: userInput)
-                print("You have \(totalEggs) eggs in your inventory.")
+                EggsInInventory = addEggs(
+                    EggsInInventory: EggsInInventory, eggsAdded: userInput,
+                    maxEggsInInventory: maxEggsInInventory)
+                print("You have \(EggsInInventory) eggs in your inventory.")
 
             case 2:
                 print("\nHow many eggs would you like to sell")
                 let userInput = intInputValidator()
-                totalEggs = sellEggs(eggsInInventory: totalEggs, eggsAdded: userInput)
-                print("You have \(totalEggs) eggs in your inventory.")
+                EggsInInventory = sellEggs(
+                    EggsInInventory: EggsInInventory, eggsSold: userInput)
+                print("You have \(EggsInInventory) eggs in your inventory.")
 
             case 5:
                 print("\nExiting the Egg Shop.")
