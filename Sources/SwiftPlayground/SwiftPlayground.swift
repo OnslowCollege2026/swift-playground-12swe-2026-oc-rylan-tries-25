@@ -25,7 +25,7 @@ func menuChoice() -> Int {
 func intInputValidator() -> Int {
     while true {
         let userInput = readLine()!
-        if let userChoice = Int(userInput), Int(userInput)! > 0 {
+        if let userChoice = Int(userInput), Int(userInput)! >= 0 {
             return userChoice
         } else {
             print("You entered '\(userInput)', please enter a valid input.")
