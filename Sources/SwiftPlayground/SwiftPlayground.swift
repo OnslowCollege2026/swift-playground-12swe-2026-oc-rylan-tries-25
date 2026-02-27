@@ -34,50 +34,52 @@ func intInputValidator() -> Int {
 }
 
 /// Allows the user to add eggs to their total amount
-func addEggs(EggsInInventory: Int, eggsAdded: Int, maxEggsInInventory: Int) -> Int {
-    if EggsInInventory + eggsAdded > maxEggsInInventory {
+func addEggs(eggsInInventory: Int, addAmount: Int, maxEggsInInventory: Int) -> Int {
+    if eggsInInventory + addAmount > maxEggsInInventory {
         // Work out how many exceeded by
-        let exceededAmount = EggsInInventory + eggsAdded - maxEggsInInventory
+        let exceededAmount = eggsInInventory + addAmount - maxEggsInInventory
 
         print(
             "\nYou have exceeded the maximum inventory of \(maxEggsInInventory) amount by \(exceededAmount).\n"
         )
 
         print(
-            "You have added \(maxEggsInInventory - EggsInInventory) and you have returned \(exceededAmount) back to the supplier.\n"
+            "You have added \(maxEggsInInventory - eggsInInventory) and you have returned \(exceededAmount) back to the supplier.\n"
         )
 
         return maxEggsInInventory
     } else {
-        return EggsInInventory + eggsAdded
+        return eggsInInventory + addAmount
     }
 }
 
 // Allows the user to take eggs from their total amount and sell them
-func sellEggs(EggsInInventory: Int, eggsSold: Int, totalEggsSold: Int) -> Int {
-    var totalEggsSold = totalEggsSold + eggsSold
-    if EggsInInventory - eggsSold < 0 {
+func sellEggs(eggsInInventory: Int, sellAmount: Int, totalEggsSold: Int) -> Int {
+    // var totalEggsSold = totalEggsSold + sellAmount
+    if eggsInInventory - sellAmount < 0 {
 
-        print(
-            "You have sold the maximum amount of eggs possible of \(EggsInInventory), because you were short of \(eggsSold - EggsInInventory)."
+        print( 
+            "You were short of \(sellAmount - eggsInInventory) eggs, please enter a lower amount."
         )
 
-        return 0
+        return eggsInInventory
     } else {
-        return EggsInInventory - eggsSold
+        return eggsInInventory - sellAmount
     }
 }
 
-func totalEggsSold (totalEggsSold: Int, eggsSold: Int) -> Int {
-    let totalEggsSold = totalEggsSold + eggsSold
-    return totalEggsSold
+// Shows the toal amount of eggs sold
+func eggsSold (soldAmount: Int) {
+    print("You have sold \(soldAmount) eggs.")
 }
+
 @main
 
 struct SwiftPlayground {
     static func main() {
 
-        var EggsInInventory = 120
+// Starting parameters
+        var eggsInInventory = 120
         let maxEggsInInventory = 1200
         var totalEggsSold = 0
 
@@ -92,25 +94,26 @@ struct SwiftPlayground {
             case 1:
                 print("\nHow many eggs would you like to add?")
                 let userInput = intInputValidator()
-                EggsInInventory = addEggs(
-                    EggsInInventory: EggsInInventory, eggsAdded: userInput,
+                eggsInInventory = addEggs(
+                    eggsInInventory: eggsInInventory, addAmount: userInput,
                     maxEggsInInventory: maxEggsInInventory)
-                print("You have \(EggsInInventory) eggs in your inventory.")
+                print("You have \(eggsInInventory) eggs in your inventory.")
 
             case 2:
                 print("\nHow many eggs would you like to sell")
                 let userInput = intInputValidator()
-                EggsInInventory = sellEggs(
-                    EggsInInventory: EggsInInventory, eggsSold: userInput,
+                let newInInventory = sellEggs(
+                    eggsInInventory: eggsInInventory, sellAmount: userInput,
                     totalEggsSold: totalEggsSold)
-                print("You have \(EggsInInventory) eggs in your inventory.")
+                    totalEggsSold = totalEggsSold + (eggsInInventory - newInInventory)  
+                    eggsInInventory = newInInventory
+                print("You have \(eggsInInventory) eggs in your inventory.")
 
             case 3:
-                print("You currently have \(EggsInInventory) in your inventory.")
+                print("You currently have \(eggsInInventory) in your inventory.")
 
             case 4:
-                print("You have sold \(totalEggsSold) eggs.")
-                totalEggsSold(totalEggsSold:totalEggsSold, eggSold)
+                eggsSold(soldAmount: totalEggsSold)
 
             case 5:
                 print("\nExiting the Egg Shop.")
