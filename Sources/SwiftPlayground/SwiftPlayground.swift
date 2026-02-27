@@ -58,7 +58,7 @@ func sellEggs(eggsInInventory: Int, sellAmount: Int, totalEggsSold: Int) -> Int 
     // var totalEggsSold = totalEggsSold + sellAmount
     if eggsInInventory - sellAmount < 0 {
 
-        print( 
+        print(
             "You were short of \(sellAmount - eggsInInventory) eggs, please enter a lower amount."
         )
 
@@ -69,7 +69,7 @@ func sellEggs(eggsInInventory: Int, sellAmount: Int, totalEggsSold: Int) -> Int 
 }
 
 // Shows the toal amount of eggs sold
-func eggsSold (soldAmount: Int) {
+func eggsSold(soldAmount: Int) {
     print("You have sold \(soldAmount) eggs.")
 }
 
@@ -78,19 +78,23 @@ func eggsSold (soldAmount: Int) {
 struct SwiftPlayground {
     static func main() {
 
-// Starting parameters
+        // Starting parameters
         var eggsInInventory = 120
         let maxEggsInInventory = 1200
         var totalEggsSold = 0
 
         print("\nEgg shop inventory system.")
 
+        // Starts the menu options loop, and runs until exited
         var isActive = true
         while isActive {
 
             let userChoice = menuChoice()
             switch userChoice {
 
+            // Allows the user to add eggs to their inventory
+            // Checks the integer is valid in all ways
+            // Stops the user from exceeding the max egg inventory amount of max eggs
             case 1:
                 print("\nHow many eggs would you like to add?")
                 let userInput = intInputValidator()
@@ -99,22 +103,31 @@ struct SwiftPlayground {
                     maxEggsInInventory: maxEggsInInventory)
                 print("You have \(eggsInInventory) eggs in your inventory.")
 
+
+            // Allows the user to sell eggs from their inventory
+            // Checks the integer is valid in all ways
+            // Can't sell more than the current amount of eggs in the inventory
             case 2:
                 print("\nHow many eggs would you like to sell")
                 let userInput = intInputValidator()
                 let newInInventory = sellEggs(
                     eggsInInventory: eggsInInventory, sellAmount: userInput,
                     totalEggsSold: totalEggsSold)
-                    totalEggsSold = totalEggsSold + (eggsInInventory - newInInventory)  
-                    eggsInInventory = newInInventory
+                
+                // Maybe make these into a function
+                totalEggsSold = totalEggsSold + (eggsInInventory - newInInventory)
+                eggsInInventory = newInInventory
                 print("You have \(eggsInInventory) eggs in your inventory.")
 
+            // Shows how many eggs are currently in the inventory
             case 3:
                 print("You currently have \(eggsInInventory) in your inventory.")
 
+            // Shows how many eggs the user has sold through all their sell transactions
             case 4:
                 eggsSold(soldAmount: totalEggsSold)
 
+            // Exits the loop and the egg shop
             case 5:
                 print("\nExiting the Egg Shop.")
                 isActive = false
