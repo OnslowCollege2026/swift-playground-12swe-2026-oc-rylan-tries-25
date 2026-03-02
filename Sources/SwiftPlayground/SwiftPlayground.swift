@@ -61,8 +61,12 @@ func addEggs(eggsInInventory: Int, addAmount: Int, maxEggsInInventory: Int) -> I
     }
 }
 
-// Allows the user to take eggs from their total amount and sell them
-func sellEggs(eggsInInventory: Int, sellAmount: Int, totalEggsSold: Int) -> Int {
+/// What: Allows the user to take eggs from their total amount and sell them
+/// Parameters:
+/// - eggsInInventory: How many eggs are currently in the inventroy
+/// - sellAmount: How many eggs the user wants to sell
+/// Returns: Either how many eggs are in the inventory currently or how many eggs are in the inventory currently - how many were sold
+func sellEggs(eggsInInventory: Int, sellAmount: Int) -> Int {
     if eggsInInventory - sellAmount < 0 {
 
         print(
@@ -120,8 +124,7 @@ struct SwiftPlayground {
                 print("\nHow many eggs would you like to sell")
                 let userInput = intInputValidator()
                 let newInInventory = sellEggs(
-                    eggsInInventory: eggsInInventory, sellAmount: userInput,
-                    totalEggsSold: totalEggsSold)
+                    eggsInInventory: eggsInInventory, sellAmount: userInput)
                 
                 // Maybe make these into a function
                 totalEggsSold = totalEggsSold + (eggsInInventory - newInInventory)
