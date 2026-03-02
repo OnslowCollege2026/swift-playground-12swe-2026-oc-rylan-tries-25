@@ -1,7 +1,9 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-/// Prints the menu showing the user their input options and checks their input is valid
+ 
+/// What: Prints the menu showing the user their input options and checks their input is valid
+/// Returns: The user's input
 func menuChoice() -> Int {
     print("\n==== Egg Shop ====")
     print("1. Add eggs")
@@ -21,7 +23,8 @@ func menuChoice() -> Int {
     }
 }
 
-/// A generic function that is used to validate users input is an int
+/// What: A generic function that is used to validate users input is an int
+/// Returns: The user's input
 func intInputValidator() -> Int {
     while true {
         let userInput = readLine()!
@@ -33,7 +36,12 @@ func intInputValidator() -> Int {
     }
 }
 
-/// Allows the user to add eggs to their total amount
+/// What: Allows the user to add eggs to their total amount
+/// Parameters:
+/// - eggsInInventory: How many eggs are currently in the inventory
+/// - addamount: How many eggs the user wants to add
+/// - maxEggsInInventory: The maximum amount of eggs the user is allowed in the inventory
+/// Returns: Either how many eggs are in the inventory or how many are in the inventory - the amount sold
 func addEggs(eggsInInventory: Int, addAmount: Int, maxEggsInInventory: Int) -> Int {
     if eggsInInventory + addAmount > maxEggsInInventory {
         // Work out how many exceeded by
@@ -55,7 +63,6 @@ func addEggs(eggsInInventory: Int, addAmount: Int, maxEggsInInventory: Int) -> I
 
 // Allows the user to take eggs from their total amount and sell them
 func sellEggs(eggsInInventory: Int, sellAmount: Int, totalEggsSold: Int) -> Int {
-    // var totalEggsSold = totalEggsSold + sellAmount
     if eggsInInventory - sellAmount < 0 {
 
         print(
@@ -68,7 +75,9 @@ func sellEggs(eggsInInventory: Int, sellAmount: Int, totalEggsSold: Int) -> Int 
     }
 }
 
-// Shows the toal amount of eggs sold
+/// Shows the toal amount of eggs sold
+/// Parameters:
+/// - soldAmount: How many eggs were sold
 func eggsSold(soldAmount: Int) {
     print("You have sold \(soldAmount) eggs.")
 }
