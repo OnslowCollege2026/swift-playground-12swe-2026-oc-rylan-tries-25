@@ -18,7 +18,7 @@ func menuChoice() -> Int {
         if let userChoice = Int(userInput), (1...5).contains(userChoice) {
             return userChoice
         } else {
-            print("You entered '\(userInput)', please enter a number on the menue.")
+            print("You entered '\(userInput)', please enter a number on the menu.")
         }
     }
 }
