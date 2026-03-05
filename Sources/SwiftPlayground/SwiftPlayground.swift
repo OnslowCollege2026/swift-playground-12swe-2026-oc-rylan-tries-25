@@ -1,46 +1,59 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+// Create a simple array
+
+// Print each item
+
+// Create 2d array holding ints
+
+// Print each row + item
+
+// Use guard let
+
+func arrayPrinter(row: [Int]) {
+for value in row {
+    print(value)
+}
+}
+
+let message = ("Invalid")
+func arrayItemPrinter(grid: [[Int]], rowPosition: Int, columnPosition: Int, message: String) {
+    guard rowPosition >= 0 && rowPosition < grid.count else { print(message)
+    return }
+    print(grid[rowPosition][columnPosition])
+}
+
+
 @main
 struct SwiftPlayground {
-    /// A description
-    /// - Parameters:
-    ///
     static func main() {
-        let maximumItemVolume = 2.0
+// var studentsInQuad: [Int]
 
-        print("Enter room length:")
-        guard let userInput = readLine(), let roomLength = Double(userInput) else {
+// How many students were in the quad at 8:00am, 10:30am, 1:00pm
+// studentsInQuad = [4, 7, 14]
 
-            print("Invalid number.")
-        }
-        print("Enter room Width:")
-        guard let userInput = readLine(), let roomWidth = Double(userInput) else {
+// Use a 2d array with five rows: one for each day of week
+// How many students were in the quad at 8:00am, 10:30am, 1:00pm
+var studentsInQuadByDay: [[Int]] 
+studentsInQuadByDay = [
+    [4, 7, 14], // Mon
+    [2, 9, 3], // Tues
+    [7, 10, 2], //Wed
+    [0, 4, 6], // Thu
+    [21, 55, 74] // Fri
+]
 
-            print("Enter room Height:")
-            guard let userInput = readLine(), let roomHeight = Double(userInput) else {
-                let roomArea = roomLength * roomWidth
-                let roomVolume = roomArea * roomHeight
 
-                print("Room area: \(roomArea) m^2")
-                print("Room area: \(roomVolume) m^3")
+// Simple example 1d array
+// arrayPrinter(row: studentsInQuad)
 
-                let furnitureVolumes = [1.2, 0.8, 2.5, 0.6, 1.0]
+// Prints out the values on Wed
+    // arrayPrinter(row: studentsInQuadByDay[2])
 
-                var totalFurnitureVolume = 0.0
+// Prints out Thu 1:00pm
+// print(studentsInQuadByDay[3][2])
 
-                furnitureVolumes.enumerated().forEach { index, volume in
-                    print("Item \(index + 1): \(volume) m^3")
-                    if volume > maximumItemVolume {
-                        print("Oversized item detected.")
-                    }
-                    totalFurnitureVolume = totalFurnitureVolume + volume
-                }
-
-                let usableVolume = roomVolume - totalFurnitureVolume
-                print("Usable volume: \(usableVolume) m^3.")
-
-            }
-        }
+arrayItemPrinter(grid: studentsInQuadByDay, rowPosition: 1, columnPosition: 0, message: message)
     }
 }
