@@ -1,7 +1,7 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
- 
+
 /// What: Prints the menu showing the user their input options and checks their input is valid
 /// Returns: The user's input
 func menuChoice() -> Int {
