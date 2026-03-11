@@ -18,8 +18,12 @@ for value in row {
 }
 
 let message = ("Invalid")
-func arrayItemPrinter(grid: [[Int]], rowPosition: Int, columnPosition: Int, message: String) {
+func arrayItemPrinter(grid: [[Int]], rowPosition: rowPositionInput, columnPosition: columnPositionInput, message: String) {
+    let rowPostionInput = readLine()!
+    let columnPositionInput = readLine()!
     guard rowPosition >= 0 && rowPosition < grid.count else { print(message)
+    return }
+    guard columnPosition >= 0 && columnPosition < grid.count else { print(message)
     return }
     print(grid[rowPosition][columnPosition])
 }
@@ -28,6 +32,7 @@ func arrayItemPrinter(grid: [[Int]], rowPosition: Int, columnPosition: Int, mess
 @main
 struct SwiftPlayground {
     static func main() {
+
 // var studentsInQuad: [Int]
 
 // How many students were in the quad at 8:00am, 10:30am, 1:00pm
@@ -54,6 +59,6 @@ studentsInQuadByDay = [
 // Prints out Thu 1:00pm
 // print(studentsInQuadByDay[3][2])
 
-arrayItemPrinter(grid: studentsInQuadByDay, rowPosition: 1, columnPosition: 0, message: message)
+arrayItemPrinter(grid: studentsInQuadByDay, rowPosition: rowPositionInput, columnPosition: columnPositionInput, message: message)
     }
 }
