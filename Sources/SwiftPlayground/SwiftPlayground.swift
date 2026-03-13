@@ -1,46 +1,56 @@
+
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+/*
+Game overview
+Battleships is a guessing game on a grid.
+
+One grid stores your hidden ships,
+another grid stores the player's guesses,
+and each guess reveals a hit or a miss.
+We will use two 2D arrays of String symbols:
+
+"~" for empty water,
+"S" for a ship,
+"X" for a hit,
+"O" for a miss.
+*/
+
+/// Parameter:
+/// - board: The 2D grid to display.
+func printBoard(_ board: [[String]]) {
+for row in board {
+        print(row.joined(separator: " "))
+    }
+//     for row in board {
+//     for value in row {
+//         print(value,separator: " ",terminator: " ")
+//     }
+//     print()
+// }
+
+}
+
 @main
 struct SwiftPlayground {
-    /// A description
-    /// - Parameters:
-    ///
     static func main() {
-        let maximumItemVolume = 2.0
 
-        print("Enter room length:")
-        guard let userInput = readLine(), let roomLength = Double(userInput) else {
+// Creates the 6 * 6 board
+let size = 6
+var ocean = Array(repeating: Array(repeating: "~", count: size), count: size)
+var guesses = Array(repeating: Array(repeating: "~", count: size), count: size)
 
-            print("Invalid number.")
-        }
-        print("Enter room Width:")
-        guard let userInput = readLine(), let roomWidth = Double(userInput) else {
+// Where the ships are postioned, can be changed later
+ocean[1][3] = "S"
+ocean[2][3] = "S"
+ocean[4][0] = "S"
+ocean[5][4] = "S"
 
-            print("Enter room Height:")
-            guard let userInput = readLine(), let roomHeight = Double(userInput) else {
-                let roomArea = roomLength * roomWidth
-                let roomVolume = roomArea * roomHeight
+// Won't showing this in the actual game
+print("\nThis is your battleships board of the ocean showing the ships.")
+printBoard(ocean)
 
-                print("Room area: \(roomArea) m^2")
-                print("Room area: \(roomVolume) m^3")
 
-                let furnitureVolumes = [1.2, 0.8, 2.5, 0.6, 1.0]
-
-                var totalFurnitureVolume = 0.0
-
-                furnitureVolumes.enumerated().forEach { index, volume in
-                    print("Item \(index + 1): \(volume) m^3")
-                    if volume > maximumItemVolume {
-                        print("Oversized item detected.")
-                    }
-                    totalFurnitureVolume = totalFurnitureVolume + volume
-                }
-
-                let usableVolume = roomVolume - totalFurnitureVolume
-                print("Usable volume: \(usableVolume) m^3.")
-
-            }
-        }
     }
 }
