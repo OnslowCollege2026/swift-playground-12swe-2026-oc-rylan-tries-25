@@ -61,4 +61,8 @@ studentsInQuadByDay = [
 
 arrayItemPrinter(grid: studentsInQuadByDay, rowPosition: rowPositionInput, columnPosition: columnPositionInput, message: message)
     }
+ let temperatures: [[Int]] = [
+    [14, ]
+ ]
 }
+
