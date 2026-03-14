@@ -32,6 +32,19 @@ for row in board {
 
 }
 
+/// What: A generic function that is used to validate users input is an int
+/// Returns: The user's input
+func intInputValidator() -> Int {
+    while true {
+        let userInput = readLine()!
+        if let userChoice = Int(userInput), Int(userInput)! >= 0, Int(userInput)! <= 5 {
+            return userChoice
+        } else {
+            print("You entered '\(userInput)', please enter a valid input.")
+        }
+    }
+}
+
 @main
 struct SwiftPlayground {
     static func main() {
@@ -47,10 +60,16 @@ ocean[2][3] = "S"
 ocean[4][0] = "S"
 ocean[5][4] = "S"
 
-// Won't showing this in the actual game
+// Won't show this in the actual game
 print("\nThis is your battleships board of the ocean showing the ships.")
 printBoard(ocean)
 
 
+// Will show this in the actual game
+print("\nThis is your battleships board of your guesses.")
+printBoard(guesses)
+
+
     }
 }
+
