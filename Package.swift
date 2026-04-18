@@ -14,7 +14,8 @@ let package = Package(
             name: "SwiftPlayground",
             exclude: [
                 "EggShop.swift",
-                // "BattleShips.swift"
+                // "BattleShips.swift",
+                "Duolingo.swift"
                 ]
             
         ),
