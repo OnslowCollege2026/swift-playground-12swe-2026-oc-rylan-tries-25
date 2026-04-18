@@ -32,13 +32,13 @@ func printBoard(_ board: [[String]]) {
 }
 
 /// Parameters:
-    /// - size: The width and height of the square grid.
-    /// - shipCount: How many ships to place.
-    ///
-    /// Returns: A new ocean grid with ships placed.
-    func randomShipPlacement(size: Int, shipCount: Int) -> [[String]] {
-        return placements
-    }
+/// - size: The width and height of the square grid.
+/// - shipCount: How many ships to place.
+///
+/// Returns: A new ocean grid with ships placed.
+// func randomShipPlacement(size: Int, shipCount: Int) -> [[String]] {
+//     // return placements
+// }
 
 /// What: A generic function that is used to validate users input is an int
 /// Returns: The user's input
@@ -88,16 +88,16 @@ func processGuess(row: Int, col: Int, ocean: [[String]], guesses: [[String]])
 ///
 /// Returns: How many ships remain unhit.
 func remainingShips(ocean: [[String]], guesses: [[String]]) -> Int {
-    var shipCount = 0 
+    var shipCount = 0
     for row in ocean {
         for value in row {
             if value == "S" {
                 shipCount += 1
-                
+
             }
         }
     }
-    var HitShipCount = 0 
+    var HitShipCount = 0
     for row in guesses {
         for value in row {
             if value == "X" {
@@ -108,30 +108,99 @@ func remainingShips(ocean: [[String]], guesses: [[String]]) -> Int {
     return shipCount - HitShipCount
 }
 
+// Randomly places the ships in the ocean array
+/// Parameters:
+/// - ocean: The hidden ships grid.
+/// - shipAmount: How many ships there are.
+///
+/// Returns: The ocean array with the ships in it.
+/// 
+// func shipsInOcean(ocean:[[String]], shipAmount:Int) -> [[String]] {
+
+//     var oceanWithShips = ocean
+
+// var possibleCoordinates: [[Int]] = []
+
+// for row in 0..<5 {
+//     for col in 0..<5 {
+//         possibleCoordinates.append([ row, col])
+//     }
+// }
+
+// possibleCoordinates.shuffle()
+
+// // Possible coordinates should look like [[3, 0], [0, 1], [3, 2], [2, 2], [4, 0]...
+
+// for ship in 0..<shipAmount {
+// oceanWithShips[possibleCoordinates[0][0]][possibleCoordinates[0][1]] = "S"
+// }
+
+// // New array
+// return oceanWithShips
+
+// }
+
+func shipsInOcean(ocean: [[String]], shipAmount: Int) -> [[String]] {
+
+    var oceanWithShips = ocean
+    var possibleCoordinates: [[Int]] = []
+
+    let size = ocean.count
+
+    for row in 0..<size {
+        for col in 0..<size {
+            possibleCoordinates.append([row, col])
+        }
+    }
+
+    possibleCoordinates.shuffle()
+
+    for ship in 0..<min(shipAmount, possibleCoordinates.count) {
+        let row = possibleCoordinates[ship][0]
+        let col = possibleCoordinates[ship][1]
+        oceanWithShips[row][col] = "S"
+    }
+
+    return oceanWithShips
+}
+
 @main
 struct SwiftPlayground {
     static func main() {
 
         // Creates the 6 * 6 board
-        // print ("\nWhat size board do you want? (Between 5 - 12)")
-        // let size = intInputValidator(minSize: 5, maxSize: 12)
-        
-        let size = 6
+        print ("\nWhat size board do you want? (Between 5 - 12)")
+        let size = intInputValidator(minSize: 5, maxSize: 12)
+
+        // let size = 6
 
         var ocean = Array(repeating: Array(repeating: "~", count: size), count: size)
         var guesses = Array(repeating: Array(repeating: "~", count: size), count: size)
 
         // Where the ships are postioned, can be changed later
-        print ("\nHow many ships would you like to play with? (Between 2 - 6)")
+        
+        
+        print("\nHow many ships would you like to play with? (Between 2 - 6)")
+        
         let shipAmount = intInputValidator(minSize: 2, maxSize: 6)
-        ocean[1][3] = "S"
-        // ocean[2][3] = "S"
-        // ocean[4][0] = "S"
-        // ocean[5][4] = "S"
+
+        print("\nHow many guesses would you like to play with? (Between \(shipAmount) - \((shipAmount * 3)))")
+        
+        var guessesRemaining = intInputValidator(minSize: shipAmount, maxSize: (shipAmount * 3))
+
+        // let shipAmount = 2
+
+        // Call place ships function and return ocean with ships in it
+        ocean = shipsInOcean(ocean:ocean, shipAmount:shipAmount)
+
+        // ocean[1][3] = "S"
+        // // ocean[2][3] = "S"
+        // // ocean[4][0] = "S"
+        // // ocean[5][4] = "S"
 
         // Won't show this in the actual game
-        print("\nThis is your battleships board of the ocean showing the ships.")
-        printBoard(ocean)
+        // print("\nThis is your battleships board of the ocean showing the ships.")
+        // printBoard(ocean)
 
         // Will show this in the actual game
         print("\nThis is your battleships board of your guesses.")
@@ -147,14 +216,16 @@ struct SwiftPlayground {
         Save the updated guesses grid (the function prints the message).
         Print the guesses board.
         */
-
-        var guessesRemaining = 3
+        
+        
         var shipsRemaining = remainingShips(ocean: ocean, guesses: guesses)
 
         // Create a while loop allowing the user to have five guesses
         while guessesRemaining > 0 && shipsRemaining > 0 {
             // var guessesRemaining = 5
-            print("You have \(shipsRemaining) ships remaining, and \(guessesRemaining) guesses remaining.")
+            print(
+                "You have \(shipsRemaining) ships remaining, and \(guessesRemaining) guesses remaining."
+            )
 
             // Ask for row and column input, and validates the input will be in the grid
             print("\nWhich row would you like to guess. Enter 1-\(size)")
@@ -186,22 +257,19 @@ struct SwiftPlayground {
             // Call the remainingShips function
             shipsRemaining = remainingShips(ocean: ocean, guesses: guesses)
             // If it = 0 say user won
-            
-    
 
-    } 
-    // if shipsRemaining != 0 {
-
-    // }
-
-if shipsRemaining == 0 {
-                print("You have won, congratulations.")
-            } else { 
-                print("\nYou have lost")
-    print ("\nThe ships were here")
-    printBoard(ocean)
-                // print("You have \(shipsRemaining) ships remaining, and \(guessesRemaining) guesses remaining.")
-            }
         }
-}
+        // if shipsRemaining != 0 {
 
+        // }
+
+        if shipsRemaining == 0 {
+            print("You have won, congratulations.")
+        } else {
+            print("\nYou have lost")
+            print("\nThe ships were here")
+            printBoard(ocean)
+            // print("You have \(shipsRemaining) ships remaining, and \(guessesRemaining) guesses remaining.")
+        }
+    }
+}
