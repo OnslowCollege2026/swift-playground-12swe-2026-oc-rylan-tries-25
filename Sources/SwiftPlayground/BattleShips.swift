@@ -31,6 +31,17 @@ func printBoard(_ board: [[String]]) {
 
 }
 
+/// Parameters:
+    /// - size: The width and height of the square grid.
+    /// - shipCount: How many ships to place.
+    ///
+    /// Returns: A new ocean grid with ships placed.
+    
+    
+    // func randomShipPlacement(size: Int, shipCount: Int) -> [[String]] {
+    //     return placements
+    // }
+
 /// What: A generic function that is used to validate users input is an int
 /// Returns: The user's input
 func intInputValidator(minSize: Int, maxSize: Int) -> Int {
@@ -51,19 +62,50 @@ func intInputValidator(minSize: Int, maxSize: Int) -> Int {
 /// - guesses: The player's current guesses grid.
 ///
 /// Returns: The updated guesses grid after the guess is applied.
-func processGuess(row: Int, col: Int, ocean: [[String]], guesses: [[String]], remainingShips: Int) -> [[String]] {
-var newGuesses = guesses
-if ocean[row][col] == "S"{
-    print("Hit!\n")
-    newGuesses[row][col] = "X"
-    var remainingShips = remainingShips - 1
-    
-} else {
-    print("Miss!\n")
-    newGuesses[row][col] = "O"
+func processGuess(row: Int, col: Int, ocean: [[String]], guesses: [[String]]) -> [[String]]
+{
+    var newGuesses = guesses
+
+    if guesses[row][col] == "O" || guesses[row][col] == "X" {
+        print("You've already guessed there, please guess somewhere else.\n")
+
+    } else if
+
+    ocean[row][col] == "S" {
+        print("Hit!\n")
+        newGuesses[row][col] = "X"
+
+    } else {
+        print("Miss!\n")
+        newGuesses[row][col] = "O"
+    }
+    return newGuesses
 }
 
-return newGuesses
+/// Parameters:
+/// - ocean: The hidden ships grid.
+/// - guesses: The player's current guesses grid.
+///
+/// Returns: How many ships remain unhit.
+func remainingShips(ocean: [[String]], guesses: [[String]]) -> Int {
+    var shipCount = 0 
+    for row in ocean {
+        for value in row {
+            if value == "S" {
+                shipCount += 1
+                
+            }
+        }
+    }
+    var HitShipCount = 0 
+    for row in guesses {
+        for value in row {
+            if value == "X" {
+                HitShipCount += 1
+            }
+        }
+    }
+    return shipCount - HitShipCount
 }
 
 @main
@@ -71,17 +113,21 @@ struct SwiftPlayground {
     static func main() {
 
         // Creates the 6 * 6 board
-
+        // print ("\nWhat size board do you want? (Between 5 - 12)")
+        // let size = intInputValidator(minSize: 5, maxSize: 12)
+        
         let size = 6
 
         var ocean = Array(repeating: Array(repeating: "~", count: size), count: size)
         var guesses = Array(repeating: Array(repeating: "~", count: size), count: size)
 
         // Where the ships are postioned, can be changed later
+        print ("\nHow many ships would you like to play with? (Between 2 - 6)")
+        // let shipAmount = intInputValidator(minSize: 2, maxSize: 6)
         ocean[1][3] = "S"
-        ocean[2][3] = "S"
-        ocean[4][0] = "S"
-        ocean[5][4] = "S"
+        // ocean[2][3] = "S"
+        // ocean[4][0] = "S"
+        // ocean[5][4] = "S"
 
         // Won't show this in the actual game
         print("\nThis is your battleships board of the ocean showing the ships.")
@@ -102,32 +148,55 @@ struct SwiftPlayground {
         Print the guesses board.
         */
 
-        var guessesRemaining = 5
-        var remainingShips = 4
+        var guessesRemaining = 3
+        var shipsRemaining = remainingShips(ocean: ocean, guesses: guesses)
 
         // Create a while loop allowing the user to have five guesses
-        while guessesRemaining > 0 {
+        while guessesRemaining > 0 && shipsRemaining > 0 {
             // var guessesRemaining = 5
-            print("You have \(guessesRemaining) guesses remaining.")
+            print("You have \(shipsRemaining) ships remaining, and \(guessesRemaining) guesses remaining.")
 
             // Ask for row and column input, and validates the input will be in the grid
             print("\nWhich row would you like to guess. Enter 1-\(size)")
             let rowInput = intInputValidator(minSize: 1, maxSize: size)
-            print(rowInput)
+            // print(rowInput)
 
             print("\nWhich column would you like to guess. Enter 1-\(size)")
             let columnInput = intInputValidator(minSize: 1, maxSize: size)
-            print(columnInput)
+            // print(columnInput)
 
-            
-            guessesRemaining = guessesRemaining - 1
+            // guessesRemaining = guessesRemaining - 1
 
             // If user input equals the column and row of the ships then replace "~" with "X" and if not then "O"
             // Changes the users input to be in array based format e.g 1 becomes 0
-            guesses = processGuess(row: Int, col: Int, ocean: [[String]], guesses: [[String]], remainingShips: remainingShips)
+
+            // Process guesses returns all the users guesses in a new grid if they are valid
+            // If the guess isn't valid then return the same grid
+            let returnedGuesses = processGuess(
+                row: (rowInput - 1), col: (columnInput - 1), ocean: ocean, guesses: guesses)
+            // IF the new grid isn't the same as the old grid then adjust guesses remaining
+            if guesses != returnedGuesses {
+                guesses = returnedGuesses
+                guessesRemaining = guessesRemaining - 1
+            }
+
+            printBoard(guesses)
+            // print(remainingShips)
+
+            // Call the remainingShips function
+            shipsRemaining = remainingShips(ocean: ocean, guesses: guesses)
+            // If it = 0 say user won
             
-            printBoard(guesses) 
-            print(remainingShips)
+    } 
+
+if shipsRemaining == 0 {
+                print("You have won, congratulations.")
+            } else { 
+                print("\nYou have lost")
+    print ("\nThe ships were here")
+    printBoard(ocean)
+                // print("You have \(shipsRemaining) ships remaining, and \(guessesRemaining) guesses remaining.")
+            }
         }
-    }
 }
+
