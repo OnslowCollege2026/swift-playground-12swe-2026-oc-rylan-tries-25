@@ -12,10 +12,10 @@ let package = Package(
         .executableTarget(
             name: "SwiftPlayground",
             exclude: [
+                // "Assesment.swift",
+                "Battleships.swift",
                 "EggShop.swift",
-                "BattleShips.swift",
-                "Duolingo.swift",
-                "Assesment.swift"
+                "Duolingo.swift"
                 ]
         ),
     ]

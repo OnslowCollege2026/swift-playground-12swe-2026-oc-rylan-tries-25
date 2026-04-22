@@ -35,9 +35,11 @@ func printBoard(_ board: [[String]]) {
 }
 
 /// What: A generic function that is used to validate users input is an int within a certain range
+/// 
 /// Parameters:
 /// - minSize: The minimum size the int can be
 /// - maxSize: The maximum size the int can be
+/// 
 /// Returns: The user's input if valid
 func intInputValidator(minSize: Int, maxSize: Int) -> Int {
     while true {
@@ -49,6 +51,8 @@ func intInputValidator(minSize: Int, maxSize: Int) -> Int {
         }
     }
 }
+
+
 /// What: Processes the users guess checks if it's a hit or miss, and then returns an updated board 
 /// Parameters:
 /// - row: The row index for the guess.
