@@ -3,13 +3,13 @@ import Foundation
 struct SwiftPlayground {
     static func main() {
     
-// var people: [String: Int] = [:]
+var people: [String: Int] = [:]
 
-// people["Jeremey"] = 53
+people["Jeremey"] = 53
 
-// for (name, age) in people {
-//     print ("\(name) is \(age)")
-// }
+for (name, age) in people {
+    print ("\(name) is \(age)")
+}
 
 // // while true {
 // //     print("Who would you like to check?")
@@ -26,51 +26,50 @@ struct SwiftPlayground {
 // // print("\(userInput) was in the system, and they are \(age).")
 // // }
 
-// print("\n...\n")
-// print("1 year has passed.\n")
+print("\n...\n")
+print("1 year has passed.\n")
 
-// people["Kimberley"] = 52
+people["Kimberley"] = 52
 
-// people["Jeremey"] = 54
-
-
-// for (name, age) in people {
-//     print ("\(name) is \(age)\n")
-
-//     }
-// print(people)
-// }
-// }
-// }
+people["Jeremey"] = 54
 
 
+for (name, age) in people {
+    print ("\(name) is \(age)\n")
 
-
-
-// Things we want to store in the transactions
-struct Transaction {
-    var transactionNumber: Int
-    var item: String
-    var price: Double
-    var quantity: Int
-    var time: String
-}
-
-var transactions: [Transaction] = []
-
-transactions.append(Transaction(transactionNumber: 1, item: "Apple", price: 2.5, quantity: 3, time: "10:30"))
-transactions.append(Transaction(transactionNumber: 2, item: "Milk", price: 4.0, quantity: 1, time: "11:00"))
-
-for t in transactions {
-    print("Transaction \(t.transactionNumber) was: \(t.item) x\(t.quantity) - $\(String(format: "%.2f", t.price)) at \(t.time)")
-}
-
-
-
-let number = 3.14159
-print(String(format: "%.2f", number))
-
-// Output:
-// 3.14
     }
+print(people)
 }
+}
+
+
+
+
+
+// // Things we want to store in the transactions
+// struct Transaction {
+//     var transactionNumber: Int
+//     var item: String
+//     var price: Double
+//     var quantity: Int
+//     var time: String
+// }
+
+// var transactions: [Transaction] = []
+
+// transactions.append(Transaction(transactionNumber: 1, item: "Apple", price: 2.5, quantity: 3, time: "10:30"))
+// transactions.append(Transaction(transactionNumber: 2, item: "Milk", price: 4.0, quantity: 1, time: "11:00"))
+
+// for t in transactions {
+//     print("Transaction \(t.transactionNumber) was: \(t.item) x\(t.quantity) - $\(String(format: "%.2f", t.price)) at \(t.time)")
+// }
+
+
+
+// let number = 3.14159
+// print(String(format: "%.2f", number))
+
+// // Output:
+// // 3.14
+//     }
+// }
