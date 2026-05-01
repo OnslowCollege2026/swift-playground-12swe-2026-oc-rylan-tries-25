@@ -40,7 +40,7 @@ func menuChoice() -> Double {
     }
 }
 
-/// What: A generic function that is used to validate users input is an Double within a certain range
+/// What: A generic function that is used to validate users input is a Double within a certain range
 /// Parameters:
 /// - minSize: The minimum size the Double can be
 /// - maxSize: The maximum size the Double can be
@@ -48,6 +48,7 @@ func menuChoice() -> Double {
 func intInputValidator(minSize: Double, maxSize: Double) -> Double {
     while true {
         let userInput = readLine()!
+
         if let userChoice = Double(userInput), Double(userInput)! >= minSize,
             Double(userInput)! <= maxSize
         {
@@ -58,49 +59,86 @@ func intInputValidator(minSize: Double, maxSize: Double) -> Double {
     }
 }
 
-func addKumaras(KumarasIncontainer: Double, addAmount: Double, maxKumarasIncontainer: Double)
+/// What: A function used to validate users bag input is an Int within a certain range
+/// Parameters:
+/// - minSize: The minimum size the Int can be
+/// - maxSize: The maximum size the Int can be
+/// Returns: The user's input if valid
+func bagValidator(minSize: Int, maxSize: Int) -> Int {
+    while true {
+        let bagInput = readLine()!
+
+        if let userChoice = Int(bagInput), Int(bagInput)! >= minSize,
+            Int(bagInput)! <= maxSize
+        {
+            return userChoice
+        } else {
+            print("You entered '\(bagInput)', please enter a valid input.")
+        }
+    }
+}
+
+/// What: Allows the user to add kumara to the container
+/// Parameters:
+/// - kumarasIncontainer: How many eggs are currently in the inventory
+/// - addamount: How many kumara the user wants to add
+/// - maxKumaraInInventory: The maximum amount of eggs the user is allowed in the inventory
+/// Returns: Either how many kumara are in the inventory or how many are in the inventory - the amount sold
+func addKumaras(kumarasIncontainer: Double, addAmount: Double, maxKumarasIncontainer: Double)
     -> Double
 {
-    if KumarasIncontainer + addAmount > maxKumarasIncontainer {
+    if kumarasIncontainer + addAmount > maxKumarasIncontainer {
         // Work out how many exceeded by
-        let exceededAmount = KumarasIncontainer + addAmount - maxKumarasIncontainer
-
+        let exceededAmount = kumarasIncontainer + addAmount - maxKumarasIncontainer
         print(
             "\nYou have exceeded the maximum container of \(maxKumarasIncontainer) amount by \(exceededAmount).\n"
         )
 
         print(
-            "You have added \(maxKumarasIncontainer - KumarasIncontainer) and you have returned \(exceededAmount) back to the supplier.\n"
+            "You have added \(maxKumarasIncontainer - kumarasIncontainer) and you have returned \(exceededAmount) back to the supplier.\n"
         )
 
         return maxKumarasIncontainer
     } else {
-        return KumarasIncontainer + addAmount
+        return kumarasIncontainer + addAmount
     }
 }
 
 /// What: Allows the user to take Kumaras from their container amount and sell them
 /// Parameters:
-/// - KumarasInContainer: How many Kumaras are currently in the container
+/// - kumarasIncontainer: How many Kumaras are currently in the container
 /// - sellAmount: How many Kumaras the user wants to sell
 /// Returns: Either how many Kumaras are in the container currently or how many Kumaras are in the container currently minues how many were sold
-func sellKumaras(KumarasIncontainer: Double, sellAmount: Double) -> Double {
-    if KumarasIncontainer - sellAmount < 0 {
+func sellKumaras(
+    kumarasIncontainer: Double, sellAmount: Double, minKumarasInContainer: Double,
+    bagsWanted: Double
+)
+    -> Double
+{
+    if kumarasIncontainer - sellAmount < minKumarasInContainer {
 
         print(
-            "You were short of \(sellAmount - KumarasIncontainer) Kumaras, please enter a lower amount."
+            "You were short of \(sellAmount - kumarasIncontainer) Kumaras, please enter a lower amount."
         )
 
-        return KumarasIncontainer
+        if sellAmount > bagsWanted * 5 {
+
+            print(
+                "You can't fit \(sellAmount) kgs of kumara in \(bagsWanted) bags, please try again."
+            )
+
+        }
+
+        return kumarasIncontainer
     } else {
-        return KumarasIncontainer - sellAmount
+        return kumarasIncontainer - sellAmount
     }
 }
 
 /// Shows the toal amount of Kumaras sold
 /// Parameters:
 /// - soldAmount: How many Kumaras were sold
-func KumarasSold(soldAmount: Double) {
+func kumaraSaleHistory(soldAmount: Double) {
     print("You have sold \(soldAmount) Kumaras.")
 }
 
@@ -109,8 +147,13 @@ struct SwiftPlayground {
     static func main() {
 
         // Starting values
-        var kumarasInContainer = 0.0
+        var kumarasIncontainer = 0.0
+        var bags = 5000
+        let minKumarasInContainer = 0.0
         let maxKumarasInContainer = 50.0
+        let minBagsBought = 1
+        let maxBagsBought = 5000
+        let kumaraCost = 0.03
 
         var isActive = true
         while isActive {
@@ -124,16 +167,28 @@ struct SwiftPlayground {
             case 1:
                 print("\nHow many kgs of kumara would you like to add?")
                 let userInput = intInputValidator(
-                    minSize: 0, maxSize: maxKumarasInContainer - kumarasInContainer)
-                kumarasInContainer = addKumaras(
-                    KumarasIncontainer: kumarasInContainer, addAmount: userInput,
+                    minSize: minKumarasInContainer,
+                    maxSize: maxKumarasInContainer - kumarasIncontainer)
+                kumarasIncontainer = addKumaras(
+                    kumarasIncontainer: kumarasIncontainer, addAmount: userInput,
                     maxKumarasIncontainer: maxKumarasInContainer)
-                print("You have \(kumarasInContainer)kg of Kumara in your container.")
+                print("You have \(kumarasIncontainer)kg of Kumara in your container.")
 
             case 2:
-                print("How many kumara would you like to sell")
-                print("How many bags do you want ")
+                print("\nHow many kgs of kumara would you like to sell?")
+                let userInput = intInputValidator(
+                    minSize: minKumarasInContainer, maxSize: maxKumarasInContainer)
 
+                print("How many bags do you want?")
+                let bagInput = bagValidator(
+                    minSize: minBagsBought, maxSize: maxBagsBought)
+
+                kumarasIncontainer = sellKumaras(
+                    kumarasIncontainer: kumarasIncontainer, sellAmount: userInput,
+                    minKumarasInContainer: minKumarasInContainer, bagsWanted: bagInput)
+
+                print("You sold \(userInput) kgs of kumara in \(bagInput) bag.")
+                print("That means each bag has \((userInput/bagInput)) ")
 
             case 5:
                 print("Exiting the Kumara Shop")
