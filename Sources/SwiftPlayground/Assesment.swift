@@ -46,7 +46,7 @@ func menuChoice() -> Double {
 /// - minSize: The minimum size the Double can be
 /// - maxSize: The maximum size the Double can be
 /// Returns: The user's input if valid
-func intInputValidator(minSize: Double, maxSize: Double) -> Double {
+func doubleInputValidator(minSize: Double, maxSize: Double) -> Double {
     while true {
         let userInput = readLine()!
 
@@ -133,7 +133,31 @@ func sellKumaras(
     }
 }
 
-func sellKumarasLogic(kumarasIncontainer: Double, minKumarasInContainer: Double, maxKumarasInContainer: Double, quantity: Double, kumaraPrice: Double, bags: Int, bagsPrice: Double, transactions: [[Double]]) -> [[Double]] {
+// func sellKumarasLogic(kumarasIncontainer: Double, minKumarasInContainer: Double, maxKumarasInContainer: Double, quantity: Double, kumaraPrice: Double, bags: Int, bagsPrice: Double, transactions: [[Double]]) -> [[Double]] {
+
+// if kumarasIncontainer - quantity < minKumarasInContainer {
+
+//         print(
+//             "You were short of \(quantity - kumarasIncontainer) Kumaras, please enter a lower amount."
+//         )
+
+//         return kumarasIncontainer
+//     } else {
+//         return kumarasIncontainer - quantity
+//     }
+
+
+// var newTransactions = transactions
+
+// let transaction: [Double] = [(quantity), (kumaraPrice), Double(bags), (bagsPrice)]
+
+// newTransactions.append(transaction)
+
+// return newTransactions
+
+// }
+
+func sellKumarasLogic(kumarasIncontainer: Double, minKumarasInContainer: Double, maxKumarasInContainer: Double, quantity: Double, kumaraPrice: Double, bagsWanted: Int, bags: Int, bagsPrice: Double, transactions: [[Double]]) -> (Double, Int, [[Double]]) {
 
 if kumarasIncontainer - quantity < minKumarasInContainer {
 
@@ -141,20 +165,17 @@ if kumarasIncontainer - quantity < minKumarasInContainer {
             "You were short of \(quantity - kumarasIncontainer) Kumaras, please enter a lower amount."
         )
 
-        return kumarasIncontainer
+        return (kumarasIncontainer, bags, transactions)
     } else {
-        return kumarasIncontainer - quantity
-    }
-
-
-var newTransactions = transactions
+        var newTransactions = transactions
 
 let transaction: [Double] = [(quantity), (kumaraPrice), Double(bags), (bagsPrice)]
 
 newTransactions.append(transaction)
 
-return newTransactions
+        return (kumarasIncontainer - quantity, bags, newTransactions)
 
+    }
 }
 
 func printSaleInformation(quantity: Double, kumaraPrice: Double, bags: Int, bagsPrice: Double) {
@@ -213,7 +234,7 @@ struct SwiftPlayground {
             // Stops the user from exceeding the max Kumara container amount of max Kumaras
             case 1:
                 print("\nHow many kgs of kumara would you like to add?")
-                let userInput = intInputValidator(
+                let userInput = doubleInputValidator(
                     minSize: minKumarasInContainer,
                     maxSize: maxKumarasInContainer - kumarasIncontainer)
                 kumarasIncontainer = addKumaras(
@@ -223,15 +244,14 @@ struct SwiftPlayground {
 
             case 2:
                 print("\nHow many kgs of kumara would you like to sell?")
-                let userInput = intInputValidator(
+                let userInput = doubleInputValidator(
                     minSize: minKumarasInContainer, maxSize: kumarasIncontainer)
-                    kumarasIncontainer = sellKumaras(kumarasIncontainer: kumarasIncontainer, sellAmount: userInput, minKumarasInContainer: minKumarasInContainer)
 
                 print("How many bags do you want?")
                 let bagInput = bagValidator(
                     minSize: minBagsBought, maxSize: maxBagsBought, userInput: userInput)
 
-                transactions = sellKumaras(quantity: userInput, kumaraPrice: kumaraCost, bags: bagInput, bagsPrice: bagCost, transactions: transactions )
+                (kumarasIncontainer, bags, transactions) = sellKumarasLogic(kumarasIncontainer: kumarasIncontainer, minKumarasInContainer: minKumarasInContainer, maxKumarasInContainer: maxKumarasInContainer, quantity: userInput, kumaraPrice: kumaraCost, bags: bags, bagsPrice: bagCost, transactions: transactions)
 
                 printSaleInformation(quantity: userInput, kumaraPrice: kumaraCost, bags: bagInput, bagsPrice: bagCost)
                 print("You currently have \(kumarasIncontainer)kgs of kumara in your container, and \(bags) bags left.")
