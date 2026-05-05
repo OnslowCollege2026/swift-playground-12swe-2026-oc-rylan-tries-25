@@ -46,7 +46,7 @@ var sumOfBagClips: Double = 0
         }
 
     
-        print("You had made \(transactionHistory.count) sales.")
+        print("You've made \(transactionHistory.count) sale/s.")
         if transactionHistory.count > 0 {
         print("You've sold \(sumOfQuantity) kgs of ____, and made $\(sumOfTotalCost) from those sales.")
         print("Your average ______ sale weight was \(sumOfQuantity / Double(transactionHistory.count))kg")
@@ -76,7 +76,7 @@ transactions = sellBread(quantity: 6, breadPrice: 7.0, bagClips: 4, bagClipsPric
 
 // }
 
-printTransactions(transactions)
+// printTransactions(transactions)
 printSummaryInformation(transactions)
 printSaleInformation(quantity: 7, breadPrice: 4, bagClips: 2, bagClipsPrice: 0.2)
 
