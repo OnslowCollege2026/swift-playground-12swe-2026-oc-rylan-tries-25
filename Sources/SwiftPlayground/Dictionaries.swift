@@ -1,32 +1,32 @@
 import Foundation
 
-// func sellBread(quantity: Double, breadPrice: Double, bagClips: Int, bagClipsPrice: Double, transactions: [[Double]]) -> [[Double]] {
+func sellBread(quantity: Double, breadPrice: Double, bagClips: Int, bagClipsPrice: Double, transactions: [[Double]]) -> [[Double]] {
 
-// var newTransactions = transactions
+var newTransactions = transactions
 
-// let transaction: [Double] = [(quantity), (breadPrice), Double(bagClips), (bagClipsPrice)]
+let transaction: [Double] = [(quantity), (breadPrice), Double(bagClips), (bagClipsPrice)]
 
-// newTransactions.append(transaction)
+newTransactions.append(transaction)
 
-// return newTransactions
+return newTransactions
 
-// }
+}
 
 
-// func printTransactions(_ transactionHistory: [[Double]]) {
-//     print("Quantity(kg) | Price ($) | Bag Clips | Bag Clips Price ($) | Total Cost ($)")
-//     print("----------------------------------------------------------------------------")
-//     for row in transactionHistory {
-//         let totalPrice = (row[2] * row[3]) + row[1] * row[0]
-//     let salesSummary = ("      \(String(format: "%.2f", row[0])) |      \(String(format: "%.2f", row[1])) |      \(row[2]) |      \(String(format: "%.2f", row[3]))) |      \(String(format: "%.2f", (totalPrice))) ")
-//         print (salesSummary)
-//         // for value in row {
-//         //     print(value,separator: "",terminator: " | ")
-//         // }
-//         // print(row.joined(separator: "|"))
-//         // print()
-//     }
-// }
+func printTransactions(_ transactionHistory: [[Double]]) {
+    print("Quantity(kg) | Price ($) | Bag Clips | Bag Clips Price ($) | Total Cost ($)")
+    print("----------------------------------------------------------------------------")
+    for row in transactionHistory {
+        let totalPrice = (row[2] * row[3]) + row[1] * row[0]
+    let salesSummary = ("      \(String(format: "%.2f", row[0])) |      \(String(format: "%.2f", row[1])) |      \(row[2]) |      \(String(format: "%.2f", row[3]))) |      \(String(format: "%.2f", (totalPrice))) ")
+        print (salesSummary)
+        for value in row {
+            print(value,separator: "",terminator: " | ")
+        }
+        // print(row.joined(separator: "|"))
+        print()
+    }
+}
 
 // func printSaleInformation(quantity: Double, breadPrice: Double, bagClips: Int, bagClipsPrice: Double) {
 //     let totalPrice = (breadPrice * quantity) + ( Double (bagClips) * bagClipsPrice)
@@ -118,11 +118,11 @@ func salesValidator(sellQuantity: Double, bagQuantity: Double, minSellAmount: Do
         print("Not enough bags.")
         validSale = false
     } 
-    if validSale == true {
+    
     return validSale
     }
 
-}
+
 
 // var newTransactions = transactions
 
@@ -137,11 +137,11 @@ func salesValidator(sellQuantity: Double, bagQuantity: Double, minSellAmount: Do
 // // @main
 
 
-// var transactions : [[Double]] = []
+var transactions : [[Double]] = []
 
 
-// transactions = sellBread(quantity: 3.5, breadPrice: 7.0, bagClips: 7, bagClipsPrice: 0.4, transactions: transactions)
-// transactions = sellBread(quantity: 6, breadPrice: 7.0, bagClips: 4, bagClipsPrice: 0.4, transactions: transactions)
+transactions = sellBread(quantity: 3.5, breadPrice: 7.0, bagClips: 7, bagClipsPrice: 0.4, transactions: transactions)
+transactions = sellBread(quantity: 6, breadPrice: 7.0, bagClips: 4, bagClipsPrice: 0.4, transactions: transactions)
 
 
 // // for row in transactions {
@@ -153,7 +153,7 @@ func salesValidator(sellQuantity: Double, bagQuantity: Double, minSellAmount: Do
 
 // // }
 
-// // printTransactions(transactions)
+printTransactions(transactions)
 // printSummaryInformation(transactions)
 // printSaleInformation(quantity: 7, breadPrice: 4, bagClips: 2, bagClipsPrice: 0.2)
 
